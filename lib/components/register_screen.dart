@@ -7,7 +7,78 @@ class RegisterPage extends StatefulWidget {
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
+  String _fullNameError = '';
+  String _usernameError = '';
+  String _passwordError = '';
+  String _confirmPasswordError = '';
+  String _phoneNumberError = '';
+  String _emailError = '';
 
+  String _fullNameValidation = '';
+  String _usernameValidation = '';
+  String _passwordValidation = '';
+  String _emailValidation = '';
+  String _confirmPasswordValidation = '';
+  String _phoneNumberValidation = '';
+
+  String _validatePassword(String input) {
+    if (input.length == 0) {
+      return 'Password cannot be empty';
+    }
+    if(input.length < 8 || input.length > 12){
+      return 'Password format incorrect';
+    }
+    return '';
+  }
+
+  String _validateUsername(String input) {
+    if (input.length == 0) {
+      return 'Username cannot be empty';
+    }
+    if(input.length < 5 || input.length > 10){
+      return 'Username format incorrect';
+    }
+    return '';
+  }
+
+  String _validatePhoneNumber(String input) {
+    if (input.length == 0) {
+      return 'PhoneNumbe cannot be empty';
+    }
+    if(input.length != 10){
+      return 'PhoneNumber format incorrect';
+    }
+    return '';
+  }
+  String _validateConfirmPassword(String input) {
+    if (input.length == 0) {
+      return 'Confirm Password cannot be empty';
+    }
+    if(input.length < 8 || input.length > 12){
+      return 'Confirm Password format incorrect';
+    }
+    return '';
+  }
+
+  String _validateFullName(String input) {
+    if (input.length == 0) {
+      return 'Full Name cannot be empty';
+    }
+    if(input.length < 5 || input.length > 12){
+      return 'Full Name format incorrect';
+    }
+    return '';
+  }
+
+  String _validateEmail(String input) {
+    if (input.length == 0) {
+      return 'Email cannot be empty';
+    }
+    if (!input.contains('@')) {
+      return 'Email must contain "@" symbol';
+    }
+    return '';
+  }
 class _RegisterPageState extends State<RegisterPage> {
   Color purpleLight = Color.fromARGB(255, 211, 169, 247);
   Color purpleDark = Color.fromARGB(255, 156, 119, 208);
@@ -41,7 +112,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                 hintText: "Full Name",
                                 hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
                                 prefixIcon: Icon(Icons.account_circle_outlined, color: Colors.black87,),
+                                errorText: _fullNameError == '' ? null : _fullNameError,
                               ),
+                              onChanged: (value) {
+                                setState(() {
+                                  _fullNameValidation = value;
+                                });
+                              },
                             ),
                           SizedBox(height: 15), 
                           TextField(
@@ -49,17 +126,30 @@ class _RegisterPageState extends State<RegisterPage> {
                                 hintText: "Username",
                                 hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
                                 prefixIcon: Icon(Icons.account_circle_outlined, color: Colors.black87,),
+                                errorText: _usernameError == '' ? null : _usernameError,
                               ),
+                              onChanged: (value) {
+                                setState(() {
+                                  _usernameValidation = value;
+                                });
+                              },
+                              
                             ),
                           SizedBox(height: 15),
                           
                           TextField(
-                                decoration: InputDecoration(
-                                hintText: "Telephone",
-                                hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
-                                prefixIcon: Icon(Icons.phone, color: Colors.black87,),
-                              ),
+                            decoration: InputDecoration(
+                              hintText: "Phone Number",
+                              hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
+                              prefixIcon: Icon(Icons.phone, color: Colors.black87,),
+                              errorText: _phoneNumberError == '' ? null : _phoneNumberError,
                             ),
+                            onChanged: (value) {
+                              setState(() {
+                                _phoneNumberValidation = value;
+                              });
+                            },
+                          ),
                           SizedBox(height: 10),
 
                           TextField(
@@ -67,26 +157,47 @@ class _RegisterPageState extends State<RegisterPage> {
                                 hintText: "Email",
                                 hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
                                 prefixIcon: Icon(Icons.mail, color: Colors.black87,),
+                                errorText: _emailError == '' ? null : _emailError,
                               ),
+                              onChanged: (value) {
+                                setState(() {
+                                  _emailValidation = value;
+                                });
+                              },
                             ),
 
                           SizedBox(height: 15),
 
                           TextField(
+                              obscureText: true,
                               decoration: InputDecoration(
                                 hintText: "Password",
                                 hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
                                 prefixIcon: Icon(Icons.lock, color: Colors.black87,),
+                                errorText: _passwordError == '' ? null : _passwordError,
                               ),
+                              onChanged: (value) {
+                                setState(() {
+                                  _passwordValidation = value;
+                                });
+                              },
+                              
                             ),
                           SizedBox(height: 15),
 
                           TextField(
+                              obscureText: true,
                               decoration: InputDecoration(
                                 hintText: "Confirm Password",
                                 hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
                                 prefixIcon: Icon(Icons.lock, color: Colors.black87,),
+                                errorText: _confirmPasswordError == '' ? null : _confirmPasswordError,
                               ),
+                              onChanged: (value) {
+                                setState(() {
+                                  _confirmPasswordValidation = value;
+                                });
+                              },
                             ),
                           SizedBox(height: 20), 
 
@@ -94,7 +205,12 @@ class _RegisterPageState extends State<RegisterPage> {
                             padding: EdgeInsets.symmetric(horizontal:20),
                             child:ElevatedButton(
                               onPressed: () {
-
+                                _fullNameError=_validateUsername(_fullNameValidation);
+                                _usernameError=_validateUsername(_usernameValidation);
+                                _passwordError= _validatePassword(_passwordValidation);
+                                _confirmPasswordError= _validatePassword(_confirmPasswordValidation);
+                                _emailError=_validateUsername( _emailValidation);
+                                _phoneNumberError= _validatePassword(_phoneNumberValidation);
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: purpleDark, 

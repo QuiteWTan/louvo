@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:louvo/components/register_screen.dart';
-
+import 'package:wc_form_validators/wc_form_validators.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -11,7 +11,31 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   Color purpleLight = Color.fromARGB(255, 223, 186, 255);
   Color purpleDark = Color.fromARGB(255, 156, 119, 208);
-  Color purpleDarkBorder = Color.fromARGB(255, 156, 119, 208);
+  String _UsernameError = '';
+  String _PasswordError = '';
+  String _usernameValidation = '';
+  String _passwordValidation = '';
+  
+  String _validatePassword(String input) {
+    if (input.length == 0) {
+      return 'Password cannot be empty';
+    }
+    if(input.length < 8 || input.length > 12){
+      return 'Password format incorrect';
+    }
+    return '';
+  }
+
+  String _validateUsername(String input) {
+    if (input.length == 0) {
+      return 'Username cannot be empty';
+    }
+    if(input.length < 5 || input.length > 10){
+      return 'Username format incorrect';
+    }
+    return '';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   Image.asset(
                     'assets/images/LoginImage.png',
-                    height:MediaQuery.of(context).size.height/3.2
+                    height:MediaQuery.of(context).size.height/3.5
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width/1.5,
@@ -67,16 +91,28 @@ class _LoginPageState extends State<LoginPage> {
                             hintText: "Username",
                             hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
                             prefixIcon: Icon(Icons.mail, color: Colors.black87,),
+                            errorText: _UsernameError == '' ? null : _UsernameError,
                           ),
+                          onChanged: (value) {
+                            setState(() {
+                              _usernameValidation = value;
+                            });
+                          },
                         ),
-                        SizedBox(height: 20), 
-
+                        SizedBox(height: 10),
                         TextField(
+                          obscureText: true,
                           decoration: InputDecoration(
                             hintText: "Password",
                             hintStyle: TextStyle(color: Colors.grey, fontSize: 18),
                             prefixIcon: Icon(Icons.lock, color: Colors.black87,),
+                            errorText: _PasswordError == '' ?  null : _PasswordError,
                           ),
+                          onChanged: (value) {
+                            setState(() {
+                              _passwordValidation = value;
+                            });
+                          },
                         ),
 
 
@@ -86,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                             alignment: AlignmentDirectional.centerStart,
                             child: TextButton(
                               onPressed: () {
-
+                                  
                               },
                               child: Text(
                                 "forgot password?",
@@ -104,7 +140,8 @@ class _LoginPageState extends State<LoginPage> {
                           padding: EdgeInsets.symmetric(horizontal:10),
                           child:ElevatedButton(
                             onPressed: () {
-
+                              _UsernameError=_validateUsername(_usernameValidation);
+                              _PasswordError= _validatePassword(_passwordValidation);
                             },
                             style: ElevatedButton.styleFrom(
                               primary: purpleDark, 
@@ -135,9 +172,9 @@ class _LoginPageState extends State<LoginPage> {
                             TextButton(
                               onPressed: (){
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => RegisterPage()),
-                                  );
+                                  context,
+                                  MaterialPageRoute(builder: (context) => RegisterPage()),
+                                );
                               },
                               child: Text(
                                 "Register",
