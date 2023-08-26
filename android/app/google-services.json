@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "871140984523",
+    "project_id": "louvo-project",
+    "storage_bucket": "louvo-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871140984523:android:fc5386148e88c8bbd7fd4e",
+        "android_client_info": {
+          "package_name": "com.example.louvo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871140984523-8dlkc54gm9o9srctotaeqi5ddmqbtri5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0R0mE6LzmugWWKiMuctt5Gjms1cmrOtU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871140984523-8dlkc54gm9o9srctotaeqi5ddmqbtri5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
